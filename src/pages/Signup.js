@@ -2,20 +2,28 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form"; // third-party library for form
 import { signup } from "../firebase/auth";
 
-function Signup() {
+function Signup(props) {
   const { register, handleSubmit, reset } = useForm(); //useForm is a function of react-hook-form and register, handleSubmit and reset are the fuction insie of useForm() function
   
   const [isLoading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
+    let newUser
+    setLoading(true);
+
     try {
-      setLoading(true);
-      await signup(data);
+     newUser =  await signup(data);
       reset();
     } catch (error) {
       console.log(error);
     }
-    setLoading(false);
+    if(newUser){
+      props.history.push(`/profile/${newUser.uid}`)
+    }
+    else{
+      setLoading(false);
+
+    }
   };
   const formClassName = `ui from ${isLoading ? "loading" : ""}`;
   return (

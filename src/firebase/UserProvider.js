@@ -1,6 +1,9 @@
 import React, {  useContext, useEffect, useState } from "react"
 import firebase from 'firebase/app'
 
+
+// Session Management and Authentication
+
 export const UserContext = React.createContext()
 
 export const UserProvider = (props) => {
