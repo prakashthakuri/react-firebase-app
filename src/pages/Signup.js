@@ -1,28 +1,27 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form"; // third-party library for form
 import { signup } from "../firebase/auth";
+import {Link} from "react-router-dom";
 
 function Signup(props) {
   const { register, handleSubmit, reset } = useForm(); //useForm is a function of react-hook-form and register, handleSubmit and reset are the fuction insie of useForm() function
-  
+
   const [isLoading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
-    let newUser
+    let newUser;
     setLoading(true);
 
     try {
-     newUser =  await signup(data);
+      newUser = await signup(data);
       reset();
     } catch (error) {
       console.log(error);
     }
-    if(newUser){
-      props.history.push(`/profile/${newUser.uid}`)
-    }
-    else{
+    if (newUser) {
+      props.history.push(`/profile/${newUser.uid}`);
+    } else {
       setLoading(false);
-
     }
   };
   const formClassName = `ui from ${isLoading ? "loading" : ""}`;
@@ -31,7 +30,6 @@ function Signup(props) {
       <div className="ui card login-card">
         <div className="content">
           <form className={formClassName} onSubmit={handleSubmit(onSubmit)}>
-            <div className="two fields">
               <div className="field">
                 <label>
                   First Name
@@ -54,7 +52,6 @@ function Signup(props) {
                   />
                 </label>
               </div>
-            </div>
             <div className="field">
               <label>
                 Email
@@ -72,9 +69,14 @@ function Signup(props) {
                 />
               </label>
             </div>
+            <div className="field actions">
             <button className="ui primary button login" type="submit">
               Sign Up
             </button>
+            or
+            <Link to="/login">Log in</Link>
+            </div>
+
           </form>
         </div>
       </div>
