@@ -3,12 +3,14 @@ import Header from "./Header";
 import "./firebase/config";
 import "./App.css";
 import "./pages/Signup";
-import { Route, Switch, BrowserRouter } from "react-router-dom";
+import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 import Signup from "./pages/Signup";
 import { UserProvider } from "./firebase/UserProvider";
 import Profile from "./pages/Profile";
 import "./pages/Profile";
 import Login from "./pages/Login";
+import ProfileRedirect from "./router/ProfileRedirect";
+import PrivateRoute from "./router/PrivateRoute";
 
 function App() {
   return (
@@ -18,9 +20,16 @@ function App() {
         <div className="app">
           <div className="ui grid container">
             <Switch>
-              <Route exact path="/signup" component={Signup} />
+              <ProfileRedirect exact path="/signup" component= {Signup}/>
+              <PrivateRoute exact path="/profile/:id" component= {Profile}/>
+              <ProfileRedirect exact path="/login" component={Login} />
+
+              <Route exact path="/">
+                <Redirect to="/login"/>
+              </Route>
+              {/* <Route exact path="/signup" component={Signup} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/profile/:id" component={Profile} />
+              <Route exact path="/profile/:id" component={Profile} /> */}
             </Switch>
           </div>
         </div>

@@ -31,7 +31,9 @@ function Login(props) {
       <div className="ui card login-card">
         <div className="content">
           <form className={formClassName} onSubmit={handleSubmit(onSubmit)}>
-            <div className="field">
+            <div className="two field">
+                <div className="field"></div>
+
               <label>
                 Email
                 <input type="email" name="email" placeholder="Email"  ref={register}/>
