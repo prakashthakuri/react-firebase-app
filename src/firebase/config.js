@@ -1,14 +1,14 @@
-import firebase from 'firebase/app'
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 firebase.initializeApp({
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+});
 
-apiKey: process.env.REACT_APP_APIKEY,
-authDomain: process.env.REACT_APP_AUTHDOMAIN,
-projectId: process.env.REACT_APP_PROJECTID,
-storageBucket: process.env.REACT_APP_STORAGEBUCKET,
-messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID
+console.log(firebase.app().options);
 
-})
-
-console.log(firebase.app().options)
-
+export const firestore = firebase.firestore();
